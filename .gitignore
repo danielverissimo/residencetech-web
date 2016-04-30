@@ -1,0 +1,11 @@
+/vendor
+/node_modules
+.env
+composer.lock
+.DS_Store
+Thumbs.db
+
+.vagrant
+public/phpmyadmin
+Vagrantfile
+Envoy.blade.php

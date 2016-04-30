@@ -1,0 +1,152 @@
+{
+	"name": "cartalyst/platform",
+	"description": "Platform",
+	"keywords": [
+		"cartalyst",
+		"laravel",
+		"platform",
+		"bootstrap"
+	],
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "Cartalyst LLC",
+			"email": "help@cartalyst.com"
+		},
+		{
+			"name": "Ben Corlett",
+			"email": "ben.corlett@cartalyst.com",
+			"role": "Developer"
+		},
+		{
+			"name": "Bruno Gaspar",
+			"email": "bruno.gaspar@cartalyst.com",
+			"role": "Developer"
+		},
+		{
+			"name": "Dan Syme",
+			"email": "dan.syme@cartalyst.com",
+			"role": "Project Lead"
+		},
+		{
+			"name": "Suhayb Wardany",
+			"email": "su.wardany@cartalyst.com",
+			"role": "Developer"
+		}
+	],
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "http://packages.cartalyst.com"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/firework/platform-common.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/firework/platform-media.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/firework/platform-operations.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/firework/platform-locations.git"
+		}
+	],
+	"require": {
+		"laravel/framework": "5.0.*",
+
+		"platform/admin-default": "2.0.*",
+		"platform/frontend-default": "2.0.*",
+
+		"platform/foundation": "2.0.*",
+		"platform/installer": "2.0.*",
+
+		"platform/access": "2.0.*",
+		"platform/attributes": "2.0.*",
+		"platform/content": "2.0.*",
+		"platform/dashboard": "2.0.*",
+		"platform/media": "2.0.*",
+		"platform/menus": "2.0.*",
+		"platform/operations": "2.0.*",
+		"platform/pages": "2.0.*",
+		"platform/settings": "2.0.*",
+		"platform/themes": "2.0.*",
+
+		"firework/common": "dev-beta",
+		"firework/media": "dev-beta",
+		"firework/operations": "dev-beta",
+		"firework/locations": "dev-beta",
+	  	"cartalyst/alerts": "2.0.*",
+
+	  	"league/csv": "6.2.*@dev"
+	},
+	"require-dev": {
+		"doctrine/dbal": "~2.4"
+	},
+	"autoload": {
+		"classmap": [
+			"database/migrations",
+			"database/seeds",
+			"extensions/residencetech/apartmenttype/database/migrations",
+			"extensions/residencetech/apartmenttype/database/seeds",
+		  	"extensions/residencetech/apartmentcomplex/database/migrations",
+			"extensions/residencetech/apartmentcomplex/database/seeds",
+			"extensions/mobileinn/people/database/migrations",
+			"extensions/mobileinn/people/database/seeds",
+			"extensions/residencetech/block/database/migrations",
+			"extensions/residencetech/block/database/seeds",
+			"extensions/residencetech/unit/database/migrations",
+			"extensions/residencetech/unit/database/seeds",
+			"extensions/residencetech/ocurrence/database/migrations",
+			"extensions/residencetech/ocurrence/database/seeds"
+		],
+		"files": [
+			"app/functions.php"
+		],
+		"psr-4": {
+			"App\\": "app/",
+			"Cartalyst\\Platform\\": "app/overrides/src",
+		  	"Residencetech\\Admin\\": "extensions/residencetech/admin/src/",
+			"Residencetech\\Apartmenttype\\": "extensions/residencetech/apartmenttype/src/",
+			"Residencetech\\Apartmentcomplex\\": "extensions/residencetech/apartmentcomplex/src/",
+			"Mobileinn\\People\\": "extensions/mobileinn/people/src",
+			"Mobileinn\\Users\\": "extensions/mobileinn/users/src",
+		  	"Residencetech\\Block\\": "extensions/residencetech/block/src/",
+		  	"Residencetech\\Unit\\": "extensions/residencetech/unit/src/",
+		  	"Residencetech\\Ocurrence\\": "extensions/residencetech/ocurrence/src/"
+		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/TestCase.php"
+		]
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize",
+			"php artisan platform:upgrade",
+			"php artisan theme:publish --extensions",
+			"php artisan vendor:publish --provider='Platform\\Installer\\Laravel\\InstallerServiceProvider'",
+			"php artisan theme:compile",
+			"php artisan firework:envoy"
+		],
+		"post-update-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize",
+			"php artisan platform:upgrade",
+			"php artisan theme:publish --extensions",
+			"php artisan vendor:publish --provider='Platform\\Installer\\Laravel\\InstallerServiceProvider'",
+			"php artisan theme:compile",
+			"php artisan firework:envoy"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"minimum-stability": "stable"
+}

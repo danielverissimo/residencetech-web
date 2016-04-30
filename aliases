@@ -1,0 +1,22 @@
+alias ..="cd .."
+alias ...="cd ../.."
+
+alias h='cd ~'
+alias c='clear'
+
+function serve() {
+	sudo dos2unix /vagrant/scripts/serve.sh
+	sudo bash /vagrant/scripts/serve.sh \$1 \$2
+}
+
+alias art='php artisan'
+alias cps='composer'
+alias cpsd='composer dump-autoload -o'
+alias cpsi='composer install -o --prefer-dist'
+alias cpsu='composer update -o --prefer-dist'
+alias cpsr='composer require --prefer-dist'
+alias hcps='hhvm /usr/local/bin/composer --prefer-dist'
+alias hcpsd='hhvm /usr/local/bin/composer dump-autoload -o'
+alias hcpsi='hhvm /usr/local/bin/composer install -o --prefer-dist'
+alias hcpsu='hhvm /usr/local/bin/composer update -o --prefer-dist'
+alias hcpsr='hhvm /usr/local/bin/composer require --prefer-dist'

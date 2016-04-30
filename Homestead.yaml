@@ -1,0 +1,11 @@
+---
+authorize: /homedir/.ssh/id_rsa.pub
+
+keys:
+    - /homedir/.ssh/id_rsa
+
+folders: []
+
+sites:
+    - map: homestead.app
+      to: /vagrant/public
