@@ -159,6 +159,8 @@ return [
 
 				Route::post('create_reply', ['as' => 'admin.residencetech.ocurrence.ocurrences.create_reply', 'uses' => 'OcurrencesController@createReply']);
 
+				Route::get('close/{id}', ['as' => 'admin.residencetech.ocurrence.ocurrences.close', 'uses' => 'OcurrencesController@close']);
+
 				Route::get('{id}'   , ['as' => 'admin.residencetech.ocurrence.ocurrences.edit'  , 'uses' => 'OcurrencesController@edit']);
 				Route::post('{id}'  , ['as' => 'admin.residencetech.ocurrence.ocurrences.edit'  , 'uses' => 'OcurrencesController@update']);
 
@@ -182,11 +184,15 @@ return [
 		{
 			Route::get('ocurrences', ['as' => 'api.v1.residencetech.ocurrences', 'uses' => 'OcurrencesController@listOcurrences']);
 
+			Route::get('ocurrences/closed', ['as' => 'api.v1.residencetech.ocurrences.closed', 'uses' => 'OcurrencesController@listClosedOcurrences']);
+
 			Route::post('ocurrences/create', ['as' => 'api.v1.residencetech.ocurrences.create', 'uses' => 'OcurrencesController@create']);
 
 			Route::post('ocurrences/create_reply', ['as' => 'api.v1.residencetech.ocurrences.create_reply', 'uses' => 'OcurrencesController@createReply']);
 
 			Route::post('ocurrences/update/{id}', ['as' => 'api.v1.residencetech.ocurrences.update', 'uses' => 'OcurrencesController@update']);
+
+			Route::post('ocurrences/close/{id}', ['as' => 'api.v1.residencetech.ocurrences.close', 'uses' => 'OcurrencesController@close']);
 
 			Route::delete('ocurrences/delete/{id}', ['as' => 'api.v1.residencetech.ocurrences.delete', 'uses' => 'OcurrencesController@delete']);
 

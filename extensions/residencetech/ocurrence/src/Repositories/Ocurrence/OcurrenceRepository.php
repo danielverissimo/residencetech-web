@@ -17,6 +17,7 @@ class OcurrenceRepository implements OcurrenceRepositoryInterface {
 	{
 		$model = $this->createModel();
 		$ocurrence = $model->getTable();
+		$people = $model->person()->getRelated()->getTable();
 
 		$canListAll = Sentinel::check()->hasAccess('ocurrence.list_all');
 
@@ -25,10 +26,10 @@ class OcurrenceRepository implements OcurrenceRepositoryInterface {
 
 		$apartmentComplexId = Session::get('current_apartmentcomplex.id');
 
-		$select = $this->createModel()
+		$select = $model
 		->select(
-			$ocurrence.'.*'
-		);
+			$people.'.name'
+		)->leftJoin($people, $people.'.id', '=', $ocurrence.'.person_id');
 
 		$select->where($ocurrence.'.apartment_complex_id','=', $apartmentComplexId);
 
@@ -36,7 +37,22 @@ class OcurrenceRepository implements OcurrenceRepositoryInterface {
 			$select->where($ocurrence . '.person_id', '=', $personId);
 		}
 
+		$select->whereNull($ocurrence . '.closed_at');
+
 		return $select;
+	}
+
+	public function listAll($personId, $closed = false){
+
+		$ocurrences = $this->createModel()->wherePersonId($personId);
+
+		if ( $closed ){
+			$ocurrences->whereNotNull('closed_at');
+		}else{
+			$ocurrences->whereNull('closed_at');
+		}
+
+		return $ocurrences->get();
 	}
 
 	public function createOcurrence(array $ocurrence, $mediasId = []){
@@ -80,6 +96,11 @@ class OcurrenceRepository implements OcurrenceRepositoryInterface {
 				$this->deleteMedia($relation->media_id);
 			}
 		}
+	}
+
+	public function close($id)
+	{
+		return $this->update($id, array('closed_at' => Carbon::now()));
 	}
 
 	public function deleteMedia($mediaId)

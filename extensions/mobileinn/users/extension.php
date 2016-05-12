@@ -84,6 +84,7 @@ return [
 	*/
 
 	'require' => [
+		'platform/users'
 	],
 
 	/*
@@ -143,12 +144,26 @@ return [
 
 	'routes' => function(ExtensionInterface $extension, Application $app)
 	{
-		Route::group([
-			'prefix'    => 'admin/api/v1',
-			'namespace' => 'Mobileinn\Users\Controllers\Api\V1',
-		], function()
-		{
-			Route::post('auth' , ['as' => 'api.v1.mobileinn.users.auth', 'uses' => 'AuthController@auth']);
+
+		Route::group(['namespace' => 'Mobileinn\Users\Controllers'], function()
+			{
+			Route::group([
+				'prefix'    => 'admin/api/v1',
+				'namespace' => 'Mobileinn\Users\Controllers\Api\V1',
+			], function()
+			{
+				Route::post('auth' , ['as' => 'api.v1.mobileinn.users.auth', 'uses' => 'AuthController@auth']);
+			});
+
+			Route::group(['namespace' => 'Frontend'], function()
+			{
+				// Login
+				Route::post('login', ['as' => 'mobileinn.user.login', 'uses' => 'UsersController@processLogin']);
+
+				// Logout
+				Route::get('logout', ['as' => 'mobileinn.user.logout', 'uses' => 'UsersController@logout']);
+
+			});
 		});
 	},
 

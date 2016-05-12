@@ -37,13 +37,18 @@ class Ocurrence extends Model implements EntityInterface {
 		return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y H:i:s');
 	}
 
-    public function getUpdatedAtAttribute($date)
+    public function getUpdatedAtFormatedAttribute()
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y H:i:s');
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->updated_at)->format('d/m/Y H:i:s');
     }
 
 	public function getMediasAttribute()
     {
     	return isset($this->attributes['medias']) ? $this->attributes['medias'] : null;
+    }
+
+    public function person()
+    {
+        return $this->belongsToMany('Mobileinn\People\Models\Person');
     }
 }

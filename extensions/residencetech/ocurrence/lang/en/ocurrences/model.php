@@ -10,8 +10,10 @@ return [
 		'apartment_complex_id_help' => 'Enter the Apartment_Complex_Id here',
 
 
-        'id'         => 'Id',
-        'created_at' => 'Created At',
+        'id'          => 'Id',
+        'created_at'  => 'Created At',
+        'updated_at'  => 'Updated At',
+        'person_name' => 'Usuário',
 
 	],
 

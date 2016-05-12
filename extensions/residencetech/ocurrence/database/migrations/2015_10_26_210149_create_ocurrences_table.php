@@ -19,6 +19,9 @@ class CreateOcurrencesTable extends Migration {
 			$table->integer('person_id')->unsigned()->nullable();
 			$table->integer('apartment_complex_id')->unsigned();
 			$table->timestamps();
+
+			$table->softDeletes();
+			$table->date('closed_at');
 		});
 	}
 

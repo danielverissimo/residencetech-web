@@ -19,9 +19,14 @@ class OcurrencesController extends AdminController {
 	];
 
 	protected $columns = [
-		'id',
-			'data',
-			'created_at',
+		'ocurrences.id' => 'id',
+			'ocurrences.data' => 'data',
+			'ocurrences.updated_at' => 'updated_at',
+			'people.name' => 'person_name',
+	];
+
+	protected $columnsExtra = [
+
 	];
 
 	protected $settings = [
@@ -69,6 +74,11 @@ class OcurrencesController extends AdminController {
 		$this->setPeople();
 
 		return $this->processFormTrait('create');
+	}
+
+	public function close($id)	{
+
+		return $this->items->close($id);
 	}
 
 	public function createReply()

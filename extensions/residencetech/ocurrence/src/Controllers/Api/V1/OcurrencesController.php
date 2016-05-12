@@ -29,7 +29,7 @@ class OcurrencesController extends BaseController {
         $personId = $user->person()->first()->id;
 
         $occurrencesResult = [];
-        $ocurrences = $this->ocurrenceRepository->where('person_id', '=', $personId)->get();
+        $ocurrences = $this->ocurrenceRepository->listAll($personId, false);
 
         foreach ($ocurrences as $index => $ocurrence) {
 
@@ -48,9 +48,9 @@ class OcurrencesController extends BaseController {
                 "data" => $ocurrence['data'],
                 "created_at" => $ocurrence['created_at'],
                 "updated_at" => $ocurrence['updated_at'],
+                "updated_at_formated" => $ocurrence['updated_at_formated'],
                 "small_data" => $smallData
             );
-
 
             $firstReply = $ocurrence->replies->first();
 
@@ -67,6 +67,42 @@ class OcurrencesController extends BaseController {
             }else{
                 $oc['track'] = 'little';
             }
+
+            $occurrencesResult[] = $oc;
+        }
+
+        return $occurrencesResult;
+    }
+
+    public function listClosedOcurrences()
+    {
+
+        $user = Sentinel::getUser();
+        $personId = $user->person()->first()->id;
+
+        $occurrencesResult = [];
+        $ocurrences = $this->ocurrenceRepository->listAll($personId, true);
+
+        foreach ($ocurrences as $index => $ocurrence) {
+
+            // $p = $this->getHTMLData($ocurrence['data']);
+            $p = $ocurrence['data'];
+            if ( strlen($p) > 35 ){
+                $smallData = substr($p, 0, 32) . "...";
+            }else{
+                $smallData = '<b>' . $p . '</b>';
+            }
+
+            // $smallData = $ocurrence['data'];
+
+            $oc = array(
+                "id" => $ocurrence['id'],
+                "data" => $ocurrence['data'],
+                "created_at" => $ocurrence['created_at'],
+                "updated_at" => $ocurrence['updated_at'],
+                "updated_at_formated" => $ocurrence['updated_at_formated'],
+                "small_data" => $smallData
+            );
 
             $occurrencesResult[] = $oc;
         }
@@ -120,6 +156,13 @@ class OcurrencesController extends BaseController {
         );
 
         return $this->ocurrenceRepository->update($id, $ocurrence);
+    }
+
+    public function close($id)
+    {
+
+        $this->ocurrenceRepository->close($id);
+
     }
 
     public function delete($id)

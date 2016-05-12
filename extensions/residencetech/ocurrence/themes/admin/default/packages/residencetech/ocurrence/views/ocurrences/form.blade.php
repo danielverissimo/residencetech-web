@@ -118,15 +118,23 @@
 
 							@if ($item->exists)
 							<li>
+								<a href="{{ route('admin.residencetech.ocurrence.ocurrences.close', $item->id) }}" class="tip" data-action-close data-toggle="tooltip" data-original-title="{{{ trans('action.close') }}}" type="close">
+									<i class="fa fa-times-circle-o "></i>
+									<span class="visible-xs-inline">{{{ trans('action.close') }}}</span>
+								</a>
+							</li>
+							<li>
 								<a href="{{ route('admin.residencetech.ocurrence.ocurrences.delete', $item->id) }}" class="tip" data-action-delete data-toggle="tooltip" data-original-title="{{{ trans('action.delete') }}}" type="delete">
-									<i class="fa fa-trash-o"></i> <span class="visible-xs-inline">{{{ trans('action.delete') }}}</span>
+									<i class="fa fa-trash-o"></i>
+									<span class="visible-xs-inline">{{{ trans('action.delete') }}}</span>
 								</a>
 							</li>
 							@endif
 
 							<li>
 								<button class="btn btn-primary navbar-btn" data-toggle="tooltip" data-original-title="{{{ trans('action.save') }}}">
-									<i class="fa fa-save"></i> <span class="visible-xs-inline">{{{ trans('action.save') }}}</span>
+									<i class="fa fa-save"></i>
+									<span class="visible-xs-inline">{{{ trans('action.save') }}}</span>
 								</button>
 							</li>
 
